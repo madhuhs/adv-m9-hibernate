@@ -17,28 +17,21 @@
 	6.	Mapping Concepts
 	•	Simple Mapping (Class to Table, Property to Column)
 	•	Association Mapping (One-to-One, One-to-Many, Many-to-Many)
-	•	Inheritance Mapping (Single Table, Joined, Table per Class)
 
-	7.	Primary Key Strategies
-	•	Simple, Custom, and Composite Primary Keys.
-
-	8.	Version and Timestamp Mapping
-	•	Handling optimistic locking and version control.
-
-	9.	DAO Pattern Implementation with Hibernate
+	7.	DAO Pattern Implementation with Hibernate
 	•	Writing clean, reusable data access layers.
 
-	10.	Hibernate Query Language (HQL) & Criteria Queries
+	8.	Hibernate Query Language (HQL) & Criteria Queries
 	•	Writing and executing object-based queries.
 
-	11.	Transaction Management
+	9.	Transaction Management
 	•	Programmatic and declarative transaction handling.
 
-	12.	Connection Management
+	10.	Connection Management
 	•	Managing connections, connection pooling, and integration with DataSources.
 
-	13.	Hibernate Caching
+	11.	Hibernate Caching
 	•	First-level and second-level cache concepts.
 
-	14.	Performance Optimization & Best Practices
+	12.	Performance Optimization & Best Practices
 	•	Lazy vs Eager loading, batching, caching strategies.
