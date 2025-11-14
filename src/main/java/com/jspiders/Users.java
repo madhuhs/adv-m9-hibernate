@@ -1,5 +1,6 @@
 package com.jspiders;
 
+//EntityClass
 public class Users {
    private Long userid;
    private String name;

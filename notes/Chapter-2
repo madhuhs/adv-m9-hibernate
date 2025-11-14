@@ -68,7 +68,8 @@ ex: <class name="Employee" table="employee">
 
 Common ID generator strategies:
 
-1. increment : Hibernate checks the maximum ID in the table and increments it by 1.
+1. increment :
+Hibernate checks the maximum ID in the table and increments it by 1.
 Example:
 	•	If max(id) = 10 → next = 11
 	•	If max(id) = 58 → next = 59
@@ -133,7 +134,7 @@ Supported by:
 
 --------------------------------------------------------------------------------------------------------------
 * <property>
-Maps normal variables to table columns.
+Maps data-members of th class to table columns.
 Example: <property name="salary" column="salary"/>
 
 
