@@ -9,7 +9,7 @@
     <session-factory>
 
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/appusers2</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/bms</property>
         <property name="connection.username">root</property>
         <property name="connection.password">root</property>
 
@@ -23,8 +23,7 @@
         <property name="show_sql">true</property> <!-- prints all sql stmts executed by hibernate -->
         <property name="format_sql">true</property><!-- format sql stmts executed by hibernate -->
 
-        <mapping resource="Users.hbm.xml"/>
-        <mapping class="com.jspiders.demo.Employee"/>
+        <mapping class="com.jspiders.project.bms.Movie"/>
 
     </session-factory>
 

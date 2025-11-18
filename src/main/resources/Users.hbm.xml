@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.jspiders.Users" table="users">
+    <class name="com.jspiders.demo.Users" table="users">
         <id name="userid" column="userid">
             <generator class="identity"></generator>
         </id>

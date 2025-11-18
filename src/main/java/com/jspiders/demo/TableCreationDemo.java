@@ -1,4 +1,4 @@
-package com.jspiders;
+package com.jspiders.demo;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

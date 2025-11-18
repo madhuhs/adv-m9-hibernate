@@ -1,4 +1,4 @@
-package com.jspiders;
+package com.jspiders.demo;
 
 //EntityClass
 public class Users {
