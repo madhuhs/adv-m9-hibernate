@@ -10,8 +10,10 @@ import org.hibernate.cfg.Configuration;
 import java.time.LocalDate;
 
 public class Mainclass {
-    public static void main(String[] args) {
+    private static SessionFactory sessionFactory = null;
 
+    static
+    {
         //load configuration
         System.out.println("1.Load Configuration");
         Configuration config = new Configuration();
@@ -19,10 +21,15 @@ public class Mainclass {
 
         //create sessionfactory
         System.out.println("2.Create SessionFactory");
-        SessionFactory sessionFactory = config.buildSessionFactory();
-        //create session
+        sessionFactory = config.buildSessionFactory();
+    }
+
+
+    public static void addMovie()
+    { //create session
         System.out.println("3.Create Session");
         Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
 
         //logics
         Movie movie1 = new Movie();
@@ -34,8 +41,6 @@ public class Mainclass {
         movie1.setCreatedAt(LocalDate.now());
         movie1.setCreatedBy(123l);
 
-        //Add data / Insert a record
-        Transaction transaction = session.beginTransaction();
         try {
             System.out.println("4.Save Entity to DB");
             session.persist(movie1);//persist-->save
@@ -48,8 +53,38 @@ public class Mainclass {
         }
         System.out.println("5.Close Session");
         session.close();
+    }
+
+    public static void updateMovie()
+    {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Movie movie1 = new Movie();
+        session.find(Movie.class,movie1);
+
+        try {
+            System.out.println("4.Save Entity to DB");
+            session.merge(movie1);//merge-->update
+            transaction.commit();
+            System.out.println("Save Entity to DB SUCCESS");
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            transaction.rollback();
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Program starts...");
+
+        //addMovie();
+        updateMovie();
+
         System.out.println("6.Close Session Factory");
         sessionFactory.close();
+
+        System.out.println("Program ends...");
     }
 }
 

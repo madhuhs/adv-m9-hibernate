@@ -19,6 +19,7 @@ public class Movie {
     @Column(name = "certification",nullable = false,length = 5)
     private String certification;
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private MovieStatus status;
     @Column(name = "created_by")
     private Long createdBy;
