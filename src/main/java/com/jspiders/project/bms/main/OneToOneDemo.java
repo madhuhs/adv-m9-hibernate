@@ -39,7 +39,7 @@ public class OneToOneDemo {
         adr1.setArea("HBR");
         adr1.setCity("BLR");
 
-        System.out.println("Linking Adui to Address ");
+        System.out.println("Linking Audi to Address ");
         a1.setAddress(adr1);//link Audi to Address
 
         session.persist(a1);
@@ -65,17 +65,29 @@ public class OneToOneDemo {
         System.out.println("Session closed");
     }
 
-    public static void getAudiDetails()
+    public static void getAudiDetails(Long id)
     {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
 
+        System.out.println("Finding Audi data with id : "+id);
+        Audi a1 = session.find(Audi.class,id);
+
+        System.out.println(a1);
+
+        transaction.commit();
+        session.close();
+        System.out.println("Session closed");
     }
 
     public static void main(String[] args) {
 
         System.out.println("Program starts...");
 
-       // saveAudi();
-        deleteAudi(1l);
+       //saveAudi();
+      //  deleteAudi(1l);
+
+        getAudiDetails(2L);
 
         System.out.println("4.Close Session Factory");
         sessionFactory.close();

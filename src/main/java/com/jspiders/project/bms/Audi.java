@@ -60,6 +60,17 @@ public class Audi extends BaseEntity {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Audi{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", seatRows=" + seatRows +
+                ", seatColumns=" + seatColumns +
+                ", address=" + address +
+                '}';
+    }
 }
 
 

@@ -49,4 +49,14 @@ public class Address extends BaseEntity{
     public void setCity(String city) {
         this.city = city;
     }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", street='" + street + '\'' +
+                ", area='" + area + '\'' +
+                ", city='" + city + '\'' +
+                '}';
+    }
 }
