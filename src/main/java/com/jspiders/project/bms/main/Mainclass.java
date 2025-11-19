@@ -60,26 +60,53 @@ public class Mainclass {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        Movie movie1 = new Movie();
-        session.find(Movie.class,movie1);
+        System.out.println("4.Find the movie by ID");
+        Movie movie = session.find(Movie.class,1);//select * from movie where id = 1
 
-        try {
-            System.out.println("4.Save Entity to DB");
-            session.merge(movie1);//merge-->update
-            transaction.commit();
-            System.out.println("Save Entity to DB SUCCESS");
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-            transaction.rollback();
-        }
+        System.out.println("5.Update the movie data");
+
+        movie.setDuration(150);
+        movie.setStatus(MovieStatus.AVAILABLE);
+        movie.setUpdatedAt(LocalDate.now());
+        movie.setUpdatedBy(218l);
+
+        session.merge(movie);//update db
+        transaction.commit();
+
+        System.out.println("Update Success");
+
+        System.out.println("6.Close Session");
+        session.close();
+    }
+
+    public static void getMovie(Long id)
+    {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Movie movie = session.find(Movie.class,id);
+        transaction.commit();
+
+        System.out.println("Movie Found");
+        System.out.println(movie);
+    }
+
+    public static void deleteMovie(Long id)
+    {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Movie movie = session.find(Movie.class,id);
+        session.remove(movie);//delete
+        transaction.commit();
+        System.out.println("Movie Deleted");
     }
 
     public static void main(String[] args) {
         System.out.println("Program starts...");
 
-        //addMovie();
-        updateMovie();
+         //addMovie();
+        // updateMovie();
+        //getMovie(1l);
+        deleteMovie(1l);
 
         System.out.println("6.Close Session Factory");
         sessionFactory.close();

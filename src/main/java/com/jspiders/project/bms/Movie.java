@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "movie")
-public class Movie {
+public class Movie extends Object {
     @Id//PK
     @GeneratedValue(strategy = GenerationType.IDENTITY)//Use AI
     private Long id;
@@ -108,5 +108,21 @@ public class Movie {
 
     public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", language='" + language + '\'' +
+                ", duration=" + duration +
+                ", certification='" + certification + '\'' +
+                ", status=" + status +
+                ", createdBy=" + createdBy +
+                ", updatedBy=" + updatedBy +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }
