@@ -1,0 +1,64 @@
+3.Hibernate Architecture and internal working
+3.1. Session
+3.2. SessionFactory
+3.3. Transaction
+3.4 Internal Working
+============================================================
+
+✅ 3.1 SessionFactory
+	•	SessionFactory is a heavyweight(uses more memory and CPU-time), thread-safe object responsible for
+	    creating and managing Session objects.
+	•	It is created only once per application (usually during startup) because it
+	    consumes significant resources.
+	•	It is built based on Hibernate configuration files (hibernate.cfg.xml or annotations)
+	    and maintains the connection pool, second-level cache, and metadata required for ORM operations.
+
+✅ 3.2 Session
+	•	A Session is a lightweight, non-thread-safe object used to interact with the database,
+	    representing a single unit of work.
+
+	•	Session provides methods like
+        persist() -> save/insert      C-reate
+        find() -> select/search/read  R-ead
+        merge() -> update             U-pdate
+        remove() -> delete            D-elete
+
+        to perform CRUD operations on persistent objects.
+
+	•	Session also manages the first-level cache, that avoid repeated requests
+	    for the same object within a session to database.
+
+
+✅ 3.3 Transaction
+	•	A Transaction in Hibernate ensures that a series of
+	    operations are executed in an atomic, consistent, and reliable manner.
+	•	It controls commit and rollback operations, ensuring database consistency when errors occur.
+	•	Hibernate transactions abstract away JDBC transaction complexities and integrate seamlessly with JTA and Spring-managed transactions.
+
+⸻⸻⸻⸻⸻⸻⸻⸻
+3.4 Internal Working
+
+* Hibernate operates through configuration, mapping, and API layers that together manage communication
+  between Java objects and the database.
+
+1. Configuration Files:
+   • Hibernate uses configuration files (usually hibernate.cfg.xml) to define database connection settings.
+   • These include the database URL, username, password, JDBC driver class, and SQL dialect.
+   • This enables Hibernate to communicate easily with the database.
+
+2. Mapping Files:
+   • Mapping files (commonly .hbm.xml) or annotations define how Java objects map to database tables.
+   • Each Java class corresponds to a specific table, and each data-member/filed maps to a column.
+   • This process, called Object-Relational Mapping (ORM), removes the need for manual SQL handling.
+
+3. Hibernate APIs:
+   • Hibernate offers APIs to perform CRUD (Create, Read, Update, Delete) operations.
+   • These APIs allow developers to interact with data using objects rather than SQL.
+
+4. Transaction Management:
+   • Hibernate ensures that groups of operations execute as a single unit of work.
+   • This maintains data integrity — if one operation fails, the transaction rolls back.
+
+5. Query Execution:
+   • Queries can be executed using HQL (Hibernate Query Language), Criteria API, or native SQL.
+   • HQL is object-oriented and works with Java entities instead of raw tables.

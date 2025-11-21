@@ -1,0 +1,71 @@
+5.	Hibernate Annotations
+============================================================
+
+* Hibernate Annotations are Java metadata placed directly on classes and fields to define:
+	•	Class → Table mapping
+	•	Fields → Column mapping
+	•	Primary keys
+	•	Relationships (One-to-Many, Many-to-One, etc.)
+	•	Fetch types, cascade rules
+	•	Constraints
+
+* Annotations remove the need for hbm.xml files.
+
+
+✅ 1. Entity-Level/ Class Level  Annotations
+@Entity	           : Marks the class as a persistent entity - name (optional)
+
+@Table	           : Defines table name and constraints	name, schema, catalog, uniqueConstraints
+                     @Table(name="employee") ,If not specified → class name will be used as table name.
+
+@MappedSuperclass  : Common fields for multiple entities.
+                     Parent class is not a table and Child class should have dataMembers of Parent
+                     mapped to columns
+
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
+
+✅ 2. Primary Key & ID Generation
+
+
+@Id             : Marks the dataMember as primary key of the Table.
+@GeneratedValue : (strategy = GenerationType.IDENTITY) Defines ID generation strategy,
+                  generator	Works with identity, sequence, auto, etc.
+
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
+
+✅ 3. Column-Level Mapping
+
+@Column	     : Maps field to column	name, nullable, length, unique
+               @Column(name="emp_name", nullable=false)	Optional; Hibernate auto-maps if absent.
+
+@Transient	: Field is NOT persisted
+@Lob	    : Marks large object
+@Enumerated	: Stores enum type
+
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
+
+✅ 4. Relationship Mapping (Associations)
+@OneToOne
+@OneToMany
+@ManyToOne
+@ManyToMany
+
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
+
+
+✅ 5. Validation (Bean Validation)
+
+@NotNull	: Field must not be null	@NotNull String name;	For validation layer, not DB.
+
+@Size	    : Length restrictions	@Size(min=2, max=50)	Useful for VARCHAR columns.
+
+@Min        : Define MINIMUM value of numeric field
+
+@Max        : Define MAXIMUM value of numeric field
+
+@Pattern	: Regex check
+              @Pattern("[A-Za-z0-9]+")	For formatted fields.
+
+
+
+

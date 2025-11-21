@@ -17,4 +17,7 @@ public class Employee {
 
     @Column(name = "email",nullable = false,unique = true)
     private String empEmail;
+
+    @Transient
+    private static final String companyName = "jsp";
 }

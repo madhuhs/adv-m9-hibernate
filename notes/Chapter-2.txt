@@ -1,0 +1,48 @@
+Chapter 2: Hibernate Features
+
+============================================================
+Key features and benefits.
+
+Hibernate Features
+1. Automatic Table Creation: Can automatically generate tables from Java class structures.
+
+2. Hibernate Query Language (HQL): Object-oriented query language similar to SQL but operates on entities.
+
+3. Criteria Queries: Enables building dynamic queries programmatically.
+
+4. Caching: Improves performance via first-level (Session) and second-level (SessionFactory) caches.
+
+5. Lazy Loading: Fetches data only when needed, reducing initial load time.
+
+6. Eager Loading: Fetches all related data immediately when required.
+
+7. Transaction Management: Provides built-in commit and rollback support.
+
+8. Automatic Dirty Checking: Detects and synchronizes object state changes automatically.
+
+9. Association Mapping: Supports One-to-One, One-to-Many, and Many-to-Many relationships.
+
+10. Database Independence: Works across multiple databases through dialect configuration.
+
+========================================================================================================================
+Interviewer Questions
+
+1. What is automatic table creation in Hibernate and how does it help developers?
+
+2. What is HQL (Hibernate Query Language), and how is it different from SQL?
+
+3. What are Criteria Queries in Hibernate, and when would you use them?
+
+4. What is the purpose of caching in Hibernate? Explain first-level and second-level caching.
+
+5. What is lazy loading in Hibernate? Can you give a simple example of when it is useful?
+
+6. How does eager loading differ from lazy loading in Hibernate?
+
+7. How does Hibernate manage transactions? Why is transaction management important?
+
+8. What is automatic dirty checking in Hibernate, and how does it reduce boilerplate code?
+
+9. What types of association mappings does Hibernate support? Give examples for each.
+
+10. How does Hibernate achieve database independence using dialects?

@@ -1,20 +1,28 @@
 Chapter 1: Introduction to Hibernate
-============================================================
+1.1. What is Hibernate
+1.2  Why use Hibernate
+1.3. ORM basics
+1.4. Advantages over JDBC.
 
-What is Hibernate?
+============================================================
+1.1 What is Hibernate?
 ------------------------------------------------------------
 • Hibernate is an open-source Object-Relational Mapping (ORM) framework for Java.
-• Hibernate acts as a bridge between Java applications and the database, automatically converting
-  object operations into SQL queries.
-• It simplifies the process of building Java applications that interact with relational databases.
-• By mapping Java classes to database tables, Hibernate handles the underlying SQL operations,
+
+• Hibernate acts as a bridge between Java applications and the database,
+  automatically converting object operations into SQL queries.
+
+• Hibernate simplifies the process of building Java applications that interact with relational databases.
+
+• Hibernate maps Java classes to database tables  and handles the underlying SQL operations,
   helping developers to work directly with high-level Java objects.
 ------------------------------------------------------------
-Why Use Hibernate?
+1.2 Why Use Hibernate?
 ------------------------------------------------------------
-Hibernate addresses the limitations of traditional JDBC programming by offering the following advantages:
+Hibernate helps in overcoming the limitations of traditional JDBC programming by offering the following advantages:
 
-1. Ease of Use       : Hides the complexity of database operations, allowing developers to work with Java objects
+1. Ease of Use       : Hides the complexity of database operations,
+                       allowing developers to work with Java objects
                        instead of writing SQL queries.
 
 2. Productivity      : Reduces repetitive boilerplate code, speeding up development.
@@ -26,67 +34,19 @@ Hibernate addresses the limitations of traditional JDBC programming by offering 
 5. Maintainability   : Database schema changes require minimal code modifications.
 
 6. Scalability       : Efficiently handles large-scale, high-transaction applications.
+                       Works with standalone apps and large scale web-apps(enterprise apps) easily
 
 These features help developers focus on business logic rather than database connectivity.
 
+---------------------------------------------------
+1.3 ORM basics
+ORM maps object-oriented concepts (classes, objects) to relational tables and columns.
+	•	ORM Eliminates mismatch between Java objects and relational databases.
+	•	ORM Automatically converts Java objects to database records and vice versa.
+	•	ORM Reduces need for repetitive SQL operations like INSERT, UPDATE, DELETE.
+	•	Hibernate is one of the most popular ORM implementations in Java.
 ------------------------------------------------------------
-How Hibernate Works Internally
-------------------------------------------------------------
-* Hibernate operates through configuration, mapping, and API layers that together manage communication
-  between Java objects and the database.
-
-1. Configuration Files:
-   • Hibernate uses configuration files (usually hibernate.cfg.xml) to define database connection settings.
-   • These include the database URL, username, password, JDBC driver class, and SQL dialect.
-   • This enables Hibernate to communicate seamlessly with the database.
-
-2. Mapping Files:
-   • Mapping files (commonly .hbm.xml) or annotations define how Java objects map to database tables.
-   • Each Java class corresponds to a specific table, and each data-member/filed maps to a column.
-   • This process, called Object-Relational Mapping (ORM), removes the need for manual SQL handling.
-
-3. Hibernate APIs:
-   • Hibernate offers APIs to perform CRUD (Create, Read, Update, Delete) operations.
-   • These APIs allow developers to interact with data using objects rather than SQL.
-
-4. Transaction Management:
-   • Hibernate ensures that groups of operations execute as a single unit of work.
-   • This maintains data integrity — if one operation fails, the transaction rolls back.
-
-5. Query Execution:
-   • Queries can be executed using HQL (Hibernate Query Language), Criteria API, or native SQL.
-   • HQL is object-oriented and works with Java entities instead of raw tables.
-
-Key Components:
-   - SessionFactory: Creates Session objects.
-   - Session: Manages persistence and provides an interface between the app and the database.
-   - Transaction: Handles commit and rollback operations.
-
-------------------------------------------------------------
-4. Features of Hibernate
-------------------------------------------------------------
-1. Automatic Table Creation: Can automatically generate tables from Java class structures.
-
-2. Hibernate Query Language (HQL): Object-oriented query language similar to SQL but operates on entities.
-
-3. Criteria Queries: Enables building dynamic queries programmatically.
-
-4. Caching: Improves performance via first-level (Session) and second-level (SessionFactory) caches.
-
-5. Lazy Loading: Fetches data only when needed, reducing initial load time.
-
-6. Eager Loading: Fetches all related data immediately when required.
-
-7. Transaction Management: Provides built-in commit and rollback support.
-
-8. Automatic Dirty Checking: Detects and synchronizes object state changes automatically.
-
-9. Association Mapping: Supports One-to-One, One-to-Many, and Many-to-Many relationships.
-
-10. Database Independence: Works across multiple databases through dialect configuration.
-
-------------------------------------------------------------
-5. JDBC vs Hibernate Comparison
+1.5. JDBC vs Hibernate Comparison
 ------------------------------------------------------------
 The following table highlights key differences between JDBC and Hibernate ORM:
 
@@ -128,55 +88,21 @@ The following table highlights key differences between JDBC and Hibernate ORM:
                               |                                                | Hibernate Validator, Envers, etc.
 -------------------------------------------------------------------------------------------------------------
 
-Interview Questions & Answers
------------------------------------------
-1. What is Hibernate and why is it used?
+Interview Questions
+1. What is Hibernate, and
+   how does it help Java applications interact with a relational database?
 
-Answer:
-	•	Hibernate is an open-source ORM (Object Relational Mapping) framework for Java.
-	•	It maps Java objects to database tables, automating SQL generation.
-	•	Removes the need for manual JDBC code and SQL handling.
-	•	Provides features like transaction management, caching, and schema generation.
-	•	Allows developers to focus on business logic instead of database interaction.
+2. Why do developers prefer Hibernate over writing plain JDBC code?
+   Mention at least three reasons.
 
-⸻-------------
+3. What is ORM, and how does Hibernate use
+   ORM to map Java objects to database tables?
 
-2. What is ORM (Object Relational Mapping)?
+4. Can you explain the object–relational impedance mismatch?
+   How does Hibernate solve it?
 
-Answer:
-	•	ORM maps object-oriented concepts (classes, objects) to relational tables and columns.
-	•	Eliminates mismatch between Java objects and relational databases.
-	•	Automatically converts Java objects to database records and vice versa.
-	•	Reduces need for repetitive SQL operations like INSERT, UPDATE, DELETE.
-	•	Hibernate is one of the most popular ORM implementations in Java.
+5. How does Hibernate improve productivity compared to JDBC?
+   Give practical examples.
 
-⸻-------------
-
-3. What are the advantages of using Hibernate over JDBC?
-
-Answer:
-	•	Less Code: Eliminates boilerplate JDBC code.
-	•	Automatic Mapping: Converts objects to table data automatically.
-	•	Caching: Improves performance with first- and second-level caches.
-	•	Transaction Handling: Manages transactions internally.
-	•	Database Independence: Works with multiple databases via dialects.
-	•	Schema Management: Can auto-create or update tables from entity classes.
-	•	Easier Maintenance: Less manual SQL → fewer bugs and faster development.
-
-⸻-------------
-
-4. What are the main components of Hibernate architecture?
-
-Answer:
-	•	Configuration:
-Loads hibernate.cfg.xml and initializes Hibernate.
-	•	SessionFactory:
-Thread-safe factory that creates Session objects; one per database.
-	•	Session:
-Represents a single unit of work; performs CRUD operations.
-	•	Transaction:
-Manages commits and rollbacks; ensures atomic operations.
-	•	Query/Criteria:
-Provides APIs for fetching and manipulating data (HQL, Criteria API, SQL).
-
-⸻-------------
+6. What are the main differences between JDBC and Hibernate?
+   Can you explain at least five key differences?

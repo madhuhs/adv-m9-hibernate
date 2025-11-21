@@ -1,0 +1,79 @@
+Chapter 4 : Hibernate Project Setup and Configuration(Part-1)
+  4.1 Step-by-Step Guide
+
+============================================================
+
+4.1 Step-by-Step Guide
+
+Step 1: Create a new Maven project in your Intellij.
+        Add the required dependencies to your pom.xml
+
+         <dependencies>
+         <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+                <dependency>
+                    <groupId>org.hibernate.orm</groupId>
+                    <artifactId>hibernate-core</artifactId>
+                    <version>7.2.0.CR2</version>
+                </dependency>
+
+                <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+                <dependency>
+                    <groupId>com.mysql</groupId>
+                    <artifactId>mysql-connector-j</artifactId>
+                    <version>9.5.0</version>
+         </dependency>
+
+Step 2: Create the Hibernate Configuration File
+        Create a file named hibernate.cfg.xml in the src/main/resources directory:
+
+       <?xml version='1.0' encoding='utf-8'?>
+       <!DOCTYPE hibernate-configuration PUBLIC
+               "-//Hibernate/Hibernate Configuration DTD//EN"
+               "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+       <hibernate-configuration>
+
+           <session-factory>
+
+               <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+               <property name="connection.url">jdbc:mysql://localhost:3306/appusers2</property>
+               <property name="connection.username">root</property>
+               <property name="connection.password">root</property>
+
+               <!-- Create or Update the table -->
+               <property name="hbm2ddl.auto">update</property>
+
+               <!-- MySQL Dialect -->
+               <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+               <!-- Optional settings -->
+               <property name="show_sql">true</property> <!-- prints all sql stmts executed by hibernate -->
+               <property name="format_sql">true</property><!-- format sql stmts executed by hibernate -->
+
+               <mapping resource="Users.hbm.xml"/>
+               <mapping class="com.jspiders.demo.Employee"/>
+
+           </session-factory>
+
+       </hibernate-configuration>
+
+Step 3: Create a class to test hibernate
+        3.1. Load Configuration using Configuration Class
+             Code : Configuration config = new Configuration();
+                    config.configure("hibernate.cfg.xml");
+
+        3.2. Build SessionFactory using Configuration object
+              Code : SessionFactory sessionFactory = config.buildSessionFactory();
+
+        3.3. Create Session using SessionFactory object to connect to DB
+             Code :  Session session = sessionFactory.openSession();
+
+        3.5. Execute db operations(Logics)
+
+        3.6. Close Session
+             Code :  session.close();
+
+        3.7. Close SessionFactory
+             Code :  sessionFactory.close();
+
+

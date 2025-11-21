@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "auditorium")
+@MappedSuperclass
 public class Audi extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
