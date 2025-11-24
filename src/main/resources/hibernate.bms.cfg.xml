@@ -24,8 +24,8 @@
         <property name="format_sql">true</property><!-- format sql stmts executed by hibernate -->
 
         <mapping class="com.jspiders.project.bms.Movie"/>
-        <mapping class="com.jspiders.project.bms.Audi"/>
-        <mapping class="com.jspiders.project.bms.Address"/>
+        <mapping class="com.jspiders.project.bms.main.Auditorium"/>
+        <mapping class="com.jspiders.project.bms.main.AudiAddress"/>
 
     </session-factory>
 

@@ -1,1 +1,44 @@
 6.	Mapping Concepts
+
+OneToOne : Its a type assc. where for every record of left table
+           there exists exactly one record in the right table.
+
+           The assc. is managed by using FK.
+
+           OneToOne mapping can be of 2 types
+           1.uni-directional mapping
+           2.bi-directional mapping
+
+           * In a one-to-one uni-directional mapping, one entity has a reference to another entity,
+             and the association is only navigable in one direction.
+
+           * In a one-to-one bi-directional mapping, both entities have references to each other,
+             and the association is navigable in both directions.
+
+* Steps to achieve uni-directional OneToOne-mapping
+
+  Step1 : Create entity classes using @Entity and @Table
+  Step2 : Create columns using @Column and @Id
+  Step3 : Create a global-non-static-reference variable of the associated class
+  Step4 : Use @OneToOne annotation on global-non-static-reference variable to mark the type of Assc.
+  Step5 : Use @JoinColumn on global-non-static-reference variable to mark the FK.
+  Step6 : Use <mapping> tag and specify mappings in hibernate.cfg.xml
+
+
+  For @OneToOne relation specify cascade as cascade = CascadeType.ALL.
+
+    cascade = CascadeType.ALL :
+    This will ensure that all DML operations insert,update and delete will
+    be applicable on Associated table as well
+
+
+
+
+
+
+
+
+
+
+
+

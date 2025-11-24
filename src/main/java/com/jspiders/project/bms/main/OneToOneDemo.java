@@ -1,7 +1,5 @@
 package com.jspiders.project.bms.main;
 
-import com.jspiders.project.bms.Address;
-import com.jspiders.project.bms.Audi;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -28,19 +26,19 @@ public class OneToOneDemo {
         Transaction transaction = session.beginTransaction();
 
         System.out.println("Creating Audi data");
-        Audi a1 = new Audi();
+        Auditorium a1 = new Auditorium();
         a1.setName("AUDI-1");
         a1.setSeatRows(20);
         a1.setSeatColumns(30);
 
         System.out.println("Creating Address data");
-        Address adr1 = new Address();
-        adr1.setStreet("Street-1");
+        AudiAddress adr1 = new AudiAddress();
+        adr1.setStreetName("Street-1");
         adr1.setArea("HBR");
         adr1.setCity("BLR");
 
         System.out.println("Linking Audi to Address ");
-        a1.setAddress(adr1);//link Audi to Address
+        a1.setAudiAddress(adr1);//link Audi to Address
 
         session.persist(a1);
 
@@ -57,7 +55,7 @@ public class OneToOneDemo {
         Transaction transaction = session.beginTransaction();
 
         System.out.println("Finding Audi data with id : "+id);
-        Audi a1 = session.find(Audi.class,id);
+        Auditorium a1 = session.find(Auditorium.class,id);
         session.remove(a1);
         System.out.println("Audi and Address deleted!!");
         transaction.commit();
@@ -71,7 +69,7 @@ public class OneToOneDemo {
         Transaction transaction = session.beginTransaction();
 
         System.out.println("Finding Audi data with id : "+id);
-        Audi a1 = session.find(Audi.class,id);
+        Auditorium a1 = session.find(Auditorium.class,id);
 
         System.out.println(a1);
 
