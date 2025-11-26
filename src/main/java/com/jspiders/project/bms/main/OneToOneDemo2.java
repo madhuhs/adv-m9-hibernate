@@ -55,6 +55,8 @@ public class OneToOneDemo2 {
     {
        Session session = sessionFactory.openSession();
 
+        System.out.println("Finding audi details....");
+
        //begin transaction
        Transaction transaction = session.beginTransaction();
 
@@ -81,13 +83,47 @@ public class OneToOneDemo2 {
         session.close();
     }
 
+    public static void getAudiAddress(Long id)
+    {
+        Session session = sessionFactory.openSession();
+
+        System.out.println("Finding audi address....");
+
+        //begin transaction
+        Transaction transaction = session.beginTransaction();
+
+        //find audi address
+        AudiAddress ad1 = session.find(AudiAddress.class,id);//Select * from audi_address where id = ?
+
+        System.out.println();
+        System.out.println("============Audi Address Details===========");
+        System.out.println("ID      : "+ad1.getId());
+        System.out.println("Street  : "+ad1.getStreetName());
+        System.out.println("City    : "+ad1.getCity());
+        System.out.println("Area    : "+ad1.getArea());
+        System.out.println("Pincode : "+ad1.getPinCode());
+
+        System.out.println("============Audi Address Details===========");
+
+        System.out.println("============Audi Details===========");
+        System.out.println("Name : "+ad1.getAuditorium().getName());
+        System.out.println("Rows : "+ad1.getAuditorium().getSeatRows());
+        System.out.println("Columns : "+ad1.getAuditorium().getSeatColumns());
+        System.out.println("============Audi Details===========");
+        System.out.println();
+
+        session.close();
+    }
+
     public static void main(String[] args) {
 
         System.out.println("Program starts...");
 
         //addAudiAddress();
 
-        getAudiDetails(2l);
+       // getAudiDetails(1l);
+
+        getAudiAddress(1l);
 
         //Step : Close SessionFactory
         sessionFactory.close();

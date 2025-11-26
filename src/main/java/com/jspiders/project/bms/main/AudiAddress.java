@@ -21,6 +21,9 @@ public class AudiAddress {
     @Column(name = "pincode")
     private Integer pinCode;
 
+    @OneToOne(mappedBy = "audiAddress")
+    private Auditorium auditorium;
+
     public Long getId() {
         return id;
     }
@@ -59,5 +62,12 @@ public class AudiAddress {
 
     public void setPinCode(Integer pinCode) {
         this.pinCode = pinCode;
+    }
+
+    public Auditorium getAuditorium() {
+        return auditorium;
+    }
+    public void setAuditorium(Auditorium auditorium) {
+        this.auditorium = auditorium;
     }
 }

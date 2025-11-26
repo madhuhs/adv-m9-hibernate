@@ -31,6 +31,17 @@ OneToOne : Its a type assc. where for every record of left table
     This will ensure that all DML operations insert,update and delete will
     be applicable on Associated table as well
 
+* Steps to achieve bi-directional OneToOne-mapping
+
+  Step1 : Create entity classes using @Entity and @Table
+  Step2 : Create columns using @Column and @Id
+  Step3 : Create a global-non-static-reference variable of the associated class
+  Step4 : Use @OneToOne annotation on global-non-static-reference variable to mark the type of Assc.
+  Step5 : Use @JoinColumn on global-non-static-reference variable to mark the FK.
+  Step6 : On the Ascc. table create a global-non-static-reference variable of the owner class
+  Step7 : Use @OneToOne annotation on global-non-static-reference variable and use mappedBy = "refvar"
+  Step8 : Use <mapping> tag and specify mappings in hibernate.cfg.xml
+
 
 
 
