@@ -6,18 +6,21 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 public class OneToOneDemo2 {
-    public static void main(String[] args) {
 
-        System.out.println("Program starts...");
+    static SessionFactory sessionFactory;
 
+    static
+    {
         //Step : Load Configuration
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.bms.cfg.xml");
 
         //Step : Build SessionFactory
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
+         sessionFactory = configuration.buildSessionFactory();
+    }
 
-        //Step : Open Session
+    public static void addAudiAddress()
+    {
         Session session = sessionFactory.openSession();
 
         //Step : Begin Transaction
@@ -44,8 +47,47 @@ public class OneToOneDemo2 {
         //Step : Commit transacton
         transaction.commit();
 
-        //Step : Close Session
         session.close();
+    }
+
+    //select
+    public static void getAudiDetails(Long id)
+    {
+       Session session = sessionFactory.openSession();
+
+       //begin transaction
+       Transaction transaction = session.beginTransaction();
+
+       //find audi details
+       Auditorium a1 = session.find(Auditorium.class,id);//Select * from audi where id = 2
+
+        System.out.println();
+
+        System.out.println("============Audi Details===========");
+        System.out.println("Id           : "+a1.getId());
+        System.out.println("Name         : "+a1.getName());
+        System.out.println("Seat Rows    : "+a1.getSeatRows());
+        System.out.println("Seat Columns : "+a1.getSeatColumns());
+
+        System.out.println("Street    : "+a1.getAudiAddress().getStreetName());
+        System.out.println("Area      : "+a1.getAudiAddress().getArea());
+        System.out.println("City      : "+a1.getAudiAddress().getCity());
+        System.out.println("PINCODE   : "+a1.getAudiAddress().getPinCode());
+        System.out.println("============Audi Details===========");
+
+        System.out.println();
+
+        transaction.commit();
+        session.close();
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("Program starts...");
+
+        //addAudiAddress();
+
+        getAudiDetails(2l);
 
         //Step : Close SessionFactory
         sessionFactory.close();
