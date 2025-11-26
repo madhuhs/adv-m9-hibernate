@@ -25,6 +25,11 @@ public class Auditorium {
     @JoinColumn(name = "address_id")//Creates FK
     private AudiAddress audiAddress;
 
+
+    @OneToMany(cascade = CascadeType.ALL)//Type of Assc.
+    @JoinColumn(name = "audi_id")//Creates FK in Shows Table
+    private ArrayList<Shows> shows;
+
     public Long getId() {
         return id;
     }
@@ -64,6 +69,7 @@ public class Auditorium {
     public void setAudiAddress(AudiAddress audiAddress) {
         this.audiAddress = audiAddress;
     }
+
 }
 
 

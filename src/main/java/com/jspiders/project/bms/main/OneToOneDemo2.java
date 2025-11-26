@@ -86,15 +86,11 @@ public class OneToOneDemo2 {
     public static void getAudiAddress(Long id)
     {
         Session session = sessionFactory.openSession();
-
         System.out.println("Finding audi address....");
-
         //begin transaction
         Transaction transaction = session.beginTransaction();
-
         //find audi address
         AudiAddress ad1 = session.find(AudiAddress.class,id);//Select * from audi_address where id = ?
-
         System.out.println();
         System.out.println("============Audi Address Details===========");
         System.out.println("ID      : "+ad1.getId());
@@ -111,7 +107,6 @@ public class OneToOneDemo2 {
         System.out.println("Columns : "+ad1.getAuditorium().getSeatColumns());
         System.out.println("============Audi Details===========");
         System.out.println();
-
         session.close();
     }
 

@@ -2,6 +2,9 @@ package com.jspiders.project.bms.main;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "audi_address")
 public class AudiAddress {

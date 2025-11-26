@@ -42,7 +42,8 @@ OneToOne : Its a type assc. where for every record of left table
   Step7 : Use @OneToOne annotation on global-non-static-reference variable and use mappedBy = "refvar"
   Step8 : Use <mapping> tag and specify mappings in hibernate.cfg.xml
 
-
+OneToMany : Its a type assc. where for every record of left table
+           there exists one or more records in the right table.
 
 
 

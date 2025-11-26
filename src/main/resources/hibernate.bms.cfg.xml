@@ -26,6 +26,7 @@
         <mapping class="com.jspiders.project.bms.Movie"/>
         <mapping class="com.jspiders.project.bms.main.Auditorium"/>
         <mapping class="com.jspiders.project.bms.main.AudiAddress"/>
+        <mapping class="com.jspiders.project.bms.main.Shows"/>
 
     </session-factory>
 
