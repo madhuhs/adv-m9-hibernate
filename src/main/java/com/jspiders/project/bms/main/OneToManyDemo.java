@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class OneToManyDemo {
 
@@ -21,10 +22,8 @@ public class OneToManyDemo {
          sessionFactory = configuration.buildSessionFactory();
     }
 
-    public static void main(String[] args) {
-
-        System.out.println("Program starts...");
-
+    public static void addAudiAndShows()
+    {
         Session session = sessionFactory.openSession();
 
         Transaction transaction = session.beginTransaction();
@@ -65,6 +64,39 @@ public class OneToManyDemo {
         transaction.commit();
 
         session.close();
+    }
+
+    public static void getShowsByAudi(Long audiId)
+    {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        System.out.println("Finding Audi with id : "+audiId);
+        Auditorium auditorium = session.find(Auditorium.class,audiId);
+
+        List<Shows> shows = auditorium.getShows();
+
+        System.out.println("===============SHOW DETAILS=========");
+        for (int i=0; i<=shows.size()-1; i++)
+        {
+            System.out.println();
+            System.out.println(shows.get(i).getShowTime());
+            System.out.println(shows.get(i).getEndTime());
+            System.out.println(shows.get(i).getStatus());
+            System.out.println();
+        }
+        System.out.println("===============SHOW DETAILS=========");
+        transaction.commit();
+        session.close();
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("Program starts...");
+
+        //addAudiAndShows();
+        getShowsByAudi(5l);
+
         //Step : Close SessionFactory
         sessionFactory.close();
 
