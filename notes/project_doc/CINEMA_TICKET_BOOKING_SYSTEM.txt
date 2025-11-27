@@ -43,6 +43,10 @@ Allow the admin to add movies and schedule shows in available auditoriums.
 	•	Fields: id, name, seatRows, seatCols
 	•	Mapping: @Entity
 
+		•	Auditorium_Properties
+    	•	Fields: id, screen_type, sound
+    	•	Mapping: @Entity
+
 	•	Show
 	•	Fields: id, movie, auditorium, showTime, endTime, status
 
