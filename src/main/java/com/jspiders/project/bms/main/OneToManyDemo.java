@@ -69,7 +69,6 @@ public class OneToManyDemo {
     public static void addShow(Long audiId)
     {
         Session session = sessionFactory.openSession();
-
         Transaction transaction = session.beginTransaction();
 
         System.out.println("Creating show");
@@ -85,9 +84,7 @@ public class OneToManyDemo {
         a1.getShows().add(s1);
 
         session.persist(a1);
-
         transaction.commit();
-
         System.out.println("Show added Successfully");
 
         session.close();
@@ -117,14 +114,41 @@ public class OneToManyDemo {
         session.close();
     }
 
+    public static void deleteAudi(Long audiId)
+    {
+        System.out.println("Delete auditorium by id : "+audiId);
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        System.out.println("Finding Audi with id : "+audiId);
+        Auditorium auditorium = session.find(Auditorium.class,audiId);
+
+        session.remove(auditorium);
+        transaction.commit();
+
+        System.out.println("Auditorium with given id deleted "+audiId);
+        session.close();
+    }
+
+    public static void deleteShow(Long audiId,Long showId)
+    {
+        System.out.println("Delete auditorium by id : "+audiId);
+        Session session = sessionFactory.openSession();
+
+        System.out.println("Show with given id deleted "+audiId);
+        session.close();
+    }
+
     public static void main(String[] args) {
 
         System.out.println("Program starts...");
 
-        //addAudiAndShows();
+        addAudiAndShows();
         //addShow(5l);
 
-        getShowsByAudi(5l);
+        //deleteAudi(5l);
+
+        //getShowsByAudi(5l);
 
         //Step : Close SessionFactory
         sessionFactory.close();
