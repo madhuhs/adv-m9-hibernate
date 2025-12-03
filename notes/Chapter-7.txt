@@ -1,0 +1,53 @@
+HQL (Hibernate Query Language)
+	•	HQL is a query language similar to SQL but built for Hibernate.
+	•	The query uses entity classes and fields and not tables/columns.
+
+	•	Native SQL will tightly couple code to:
+	•	table names
+	•	column names
+	•	If we rename a field or change mappings, SQL queries can break.
+
+	•	Use objects to write queries in tables.
+	•	Lets you write queries in terms of entities and fields:
+	    Ex:
+	*	FROM Movie m WHERE m.status = 'ACTIVE'
+	*	FROM Show s WHERE s.movie.id = :movieId
+
+	•	Hibernate translates HQL → SQL automatically based on mappings.
+	•	Same HQL is database-independent works on MySQL, Postgres, etc.
+	•	Works naturally with relations (@ManyToOne, @OneToMany, etc.).
+
+Limitations
+	•	String-based, so typing mistakes can create runtime errors.
+	•	Not suitable for dynamic queries (optional filters).
+	•	No direct support for DB-specific functions.
+	•	Not ideal for very complex reporting SQL or performance tuning.
+
+
+
+HQL Methods
+
+HQL Query (org.hibernate.query.Query<T>)
+	•	Created by session.createQuery(hql, Movie.class).
+
+Important methods:
+	•	setParameter(name, value) → bind named parameter.
+
+	•	getResultList() → list of results.
+
+	•	uniqueResult() → single result or null.
+
+	•	setFirstResult(n) / setMaxResults(n) → pagination.
+
+	•	executeUpdate() → for UPDATE / DELETE HQL.
+
+⸻
+
+HQL Example
+
+List active movies:
+
+String hql = "FROM Movie m WHERE m.status = 'ACTIVE'";
+List<Movie> movies = session.createQuery(hql, Movie.class)
+                            .getResultList();
+

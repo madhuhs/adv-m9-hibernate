@@ -132,10 +132,26 @@ public class OneToManyDemo {
 
     public static void deleteShow(Long audiId,Long showId)
     {
-        System.out.println("Delete auditorium by id : "+audiId);
+        System.out.println("Delete show by audiId and showId : "+audiId+" "+showId);
         Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
 
-        System.out.println("Show with given id deleted "+audiId);
+        System.out.println("Finding Audi with id : "+audiId);
+        Auditorium auditorium = session.find(Auditorium.class,audiId);
+
+        List<Shows> shows = auditorium.getShows();
+        for (int i=0;i<=shows.size()-1;i++)
+        {
+            if(shows.get(i).getId()==showId)
+            {
+                System.out.println("show found with id : "+showId);
+                shows.remove(i);
+                break;
+            }
+        }
+        session.merge(auditorium);
+        transaction.commit();
+        System.out.println("Show with given id deleted "+showId);
         session.close();
     }
 
@@ -143,12 +159,14 @@ public class OneToManyDemo {
 
         System.out.println("Program starts...");
 
-        addAudiAndShows();
+        //addAudiAndShows();
         //addShow(5l);
 
         //deleteAudi(5l);
 
         //getShowsByAudi(5l);
+
+        deleteShow(7l,10l);
 
         //Step : Close SessionFactory
         sessionFactory.close();

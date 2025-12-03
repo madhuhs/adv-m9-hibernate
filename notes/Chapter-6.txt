@@ -46,6 +46,10 @@ OneToMany : Its a type assc. where for every record of left table
            there exists one or more records in the right table.
 
 
+           orphanRemoval = true -> unlink the relation and remove
+                                   the record from child table
+
+
 
 
 
