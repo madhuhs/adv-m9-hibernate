@@ -12,6 +12,7 @@
         <property name="connection.url">jdbc:mysql://localhost:3306/bms</property>
         <property name="connection.username">root</property>
         <property name="connection.password">root</property>
+        <property name="connection.pool_size">20</property>
 
         <!-- Create or Update the table -->
         <property name="hbm2ddl.auto">update</property>
@@ -22,6 +23,12 @@
         <!-- Optional settings -->
         <property name="show_sql">true</property> <!-- prints all sql stmts executed by hibernate -->
         <property name="format_sql">true</property><!-- format sql stmts executed by hibernate -->
+
+        <!-- Cache settings -->
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+        <property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</property>
+
 
         <mapping class="com.jspiders.project.bms.Movie"/>
         <mapping class="com.jspiders.project.bms.main.Auditorium"/>

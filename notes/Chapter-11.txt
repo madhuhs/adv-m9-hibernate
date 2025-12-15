@@ -1,0 +1,55 @@
+Chapter-11 : Hibernate Caching
+
+Hibernate Cache Caching is a crucial part of
+optimizing the performance of applications using Hibernate.
+
+It helps reduce the number of database calls by storing frequently accessed data
+in memory.
+
+Hibernate provides two levels of caching:
+* first-level cache
+* second-level cache.
+
+Each serves a specific purpose in enhancing application performance.
+
+1. First-Level Cache (Session Cache):
+    * The first-level cache is associated with the Hibernate Session object.
+    * It is enabled by default and caches objects within the scope of a session.
+
+    * When an object is requested,
+     1. Hibernate first looks in the session cache for the Data
+     2. If data is not present in the session cache then query the database.
+
+    * Scope     : Session-specific. Each session has its own first-level cache.
+    * Lifecycle : The cache is cleared when the session is closed.
+
+2. Second-Level Cache:
+   * The second-level cache is optional and provides a shared cache for all sessions.
+   * It caches objects across sessions and is configured at the SessionFactory level.
+   * It can significantly improve performance by reducing database access for frequently used data.
+
+   Scope      : Application-wide. Shared among multiple sessions.
+   Lifecycle  : The cache persists beyond the lifecycle of a single session.
+
+   <property name="hibernate.cache.use_second_level_cache">true</property>
+   <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+   <property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</property>
+
+
+Hibernate Cache Architecture
+* The architecture of Hibernate caching can be visualized as a layered structure where each layer provides different caching capabilities.
+  1. First-Level Cache (Session Cache):
+     Location: Inside the Session object.
+     Behavior: Each session maintains its own cache.
+               Objects loaded during a session are stored in
+               this cache and are cleared when the session is closed.
+
+  2. Second-Level Cache :
+     Location: At the SessionFactory level, shared across all sessions.
+     Behavior: Provides a global cache for the application.
+               It can be configured to use various cache providers (e.g., Ehcache, Infinispan).
+
+  3. Query Cache        : An optional cache that stores the results of query executions.
+                         It works in conjunction with the second-level cache to cache the results of frequently executed queries.
+
+

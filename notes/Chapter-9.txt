@@ -1,0 +1,108 @@
+Chapter-11 : Transaction Management
+
+1. What is a Transaction?
+
+A transaction is a unit of work that must execute completely
+or not execute at all.
+
+    •	If any step fails → the entire operation must ROLLBACK.
+    •	This ensures data integrity.
+	•	Transactions ensure everything succeeds or nothing does.
+	•	Hibernate handles SQL behind the scenes, but YOU must manage transactions.
+	•	Seat booking and payments MUST use strong transactions.
+
+
+2. Why do we need Transactions in Hibernate?
+
+Hibernate interacts with the database using SQL behind the scenes.
+
+Common problems without transactions:
+
+❌ Partial data saved
+❌ Orphan rows
+❌ App crashes mid-operation → database in inconsistent state
+
+Transactions solve this by ensuring: ACID properties
+
+✔ atomicity
+✔ consistency
+✔ isolation
+✔ durability
+
+
+3. The Core Hibernate Transaction Pattern
+
+Every Hibernate transaction follows 5 steps:
+
+1️⃣ Open Session
+2️⃣ Begin Transaction
+3️⃣ Perform DB operations
+4️⃣ Commit (on success) ---> try block
+5️⃣ Rollback (on failure) --> catch block
+6️⃣ Close Session
+
+
+Example : Booking Seats Requires Transaction
+
+Booking Steps:
+	1.	Lock selected seats
+	2.	Check if they’re still available
+	3.	Save booking
+	4.	Mark seats as BOOKED
+	5.	Commit only if all succeed
+
+All 5 steps must be atomic.
+
+⸻
+
+4. Why You MUST Use Transactions in Seat Booking
+
+Without a transaction:
+
+❌ Two users can book the same seat --> Race condition
+❌ Or half the seats get booked, others fail
+❌ Payment succeeds but booking fails
+❌ Booking ID generated but no seats reserved
+
+With a transaction:
+✔ No partial success
+✔ No race conditions
+✔ No double bookings
+
+⸻
+
+5. What Happens In the Background When You Commit a Tx?
+
+Hibernate:
+	•	flushes changes to the DB
+	•	generates SQL INSERT/UPDATE/DELETE
+	•	sends SQL stmt to DB
+	----------------------------------------
+	•	DB ensures ACID
+	•	on commit → DB saves
+	•	on rollback → DB undoes everything
+
+This gives you guaranteed consistency.
+
+⸻
+
+6. Best Practices for Transaction Management in Hibernate
+
+✔ Always use try-catch-finally
+✔ Always rollback() on exception
+✔ Always close() session
+✔ Group related operations into one transaction
+✔ Don’t perform long operations inside a transactions
+  do it Service class
+✔ Use Native SQL FOR UPDATE for locked-rows
+
+
+7.Common Mistakes
+
+❌ Forgetting to commit
+❌ Forgetting to rollback
+❌ Calling DB operations outside a transaction
+❌ Mixing read + write operations in different sessions
+❌ Not using FOR UPDATE for critical scenarios
+❌ Allowing a session to remain open too long
+

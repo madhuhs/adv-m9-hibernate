@@ -1,0 +1,44 @@
+Chapter 10 : Connection Management
+
+Working with databases in any application involves these steps:
+	1.	Create a Connection
+	2.	Perform DB Operations
+	3.	Close / Destroy the Connection
+
+* Creating and destroying database connections repeatedly
+  is very expensive, especially in high-load applications / enterprise apps
+* To improve performance, we use Connection Pooling.
+
+* Connection Pooling will reuse database connections instead of creating new ones every time.
+
+* Hibernate provides 3 ways to implement connection pooling:
+
+
+1. Hibernate’s Default Connection Pooling
+
+Hibernate has a built-in pooling mechanism using the internal class:
+
+org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl
+
+🔹 Features
+	•	Default min connections = 1
+	•	Default max connections = 20
+	•	You can modify it using the property:
+
+hibernate.connection.pool_size
+
+* It is NOT recommended for production or real time application usage
+* Only suitable for development/testing environments.
+
+
+2. Third-Party Connection Management Libs(Static)
+
+Hibernate supports several external connection pool libraries.
+One of the most widely used is C3P0.
+
+3. Application Server Provided Pooling (Dynamic)
+
+(Like JBoss, WebLogic, WebSphere, Tomcat )
+
+* Here the server maintains the pool, and Hibernate will fetch connections.
+* Most efficient for large enterprise apps.

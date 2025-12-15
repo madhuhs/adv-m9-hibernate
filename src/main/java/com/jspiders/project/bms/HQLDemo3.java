@@ -1,15 +1,18 @@
-package com.jspiders.demo;
+package com.jspiders.project.bms;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-public class HQLDemo {
+import java.util.List;
+import java.util.Scanner;
+
+public class HQLDemo3 {
     public static void main(String[] args) {
         //load configuration
         Configuration config = new Configuration();
-        config.configure("hibernate.cfg.xml");
+        config.configure("hibernate.bms.cfg.xml");
 
         //build session factory
         SessionFactory sessionFactory = config.buildSessionFactory();
@@ -19,17 +22,20 @@ public class HQLDemo {
         Session session = sessionFactory.openSession();//connect to db
         System.out.println("session created..");
 
-        //logics FROM Entity ref WHERE ref.dataMember = value;
-        String selectUsersByName_HQL = "FROM Users usr WHERE usr.name = 'user1'";
+        Scanner scanner  = new Scanner(System.in);
 
-        Query<Users> query = session.createQuery(selectUsersByName_HQL, Users.class);
+        String selectUsersByName_HQL2 = "FROM Movie mov WHERE mov.status = :status";
+        Query<Movie> query2 = session.createQuery(selectUsersByName_HQL2, Movie.class);
 
-        //Get data from DataBase and store it First-Level / Session Cache
-        Users users = query.uniqueResult();
+        System.out.println("Enter movie status to Search");
+        String status =  scanner.next();
+        query2.setParameter("status",MovieStatus.valueOf(status));
+        List<Movie> resultList2 = query2.getResultList();
 
-        //Get data from First-Level / Session Cache
-        Users users2 = query.uniqueResult();
-        System.out.println(users);
+        for (Movie mov:resultList2)
+        {
+            System.out.println(mov);
+        }
 
         //close session
         session.close();

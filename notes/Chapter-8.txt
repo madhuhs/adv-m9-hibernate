@@ -1,0 +1,156 @@
+HQL (Hibernate Query Language)
+	•	HQL is a query language similar to SQL but built for Hibernate.
+	•	The query uses entity classes and fields and not tables/columns.
+
+	•	Native SQL will tightly couple code to:
+	•	table names
+	•	column names
+	•	If we rename a field or change mappings, SQL queries can break.
+
+	•	Use objects to write queries in tables.
+	•	Lets you write queries in terms of entities and fields:
+	    Ex:
+	*	FROM Movie m WHERE m.status = 'ACTIVE'
+	*	FROM Show s WHERE s.movie.id = :movieId
+
+	•	Hibernate translates HQL → SQL automatically based on mappings.
+	•	Same HQL is database-independent works on MySQL, Postgres, etc.
+	•	Works naturally with relations (@ManyToOne, @OneToMany, etc.).
+
+Limitations
+	•	String-based, so typing mistakes can create runtime errors.
+	•	Not suitable for dynamic queries (optional filters).
+	•	No direct support for DB-specific functions.
+	•	Not ideal for very complex reporting SQL or performance tuning.
+
+
+
+HQL Methods
+
+HQL Query (org.hibernate.query.Query<T>)
+	•	Created by session.createQuery(hql, Movie.class).
+
+Important methods:
+	•	setParameter(name, value) → bind named parameter.
+
+	•	getResultList() → list of results.
+
+	•	uniqueResult() → single result or null.
+
+	•	setFirstResult(n) / setMaxResults(n) → pagination.
+
+	•	executeUpdate() → for UPDATE / DELETE HQL.
+
+⸻
+
+HQL Example
+
+List active movies:
+
+String hql = "FROM Movie m WHERE m.status = 'ACTIVE'";
+List<Movie> movies = session.createQuery(hql, Movie.class)
+                            .getResultList();
+
+
+
+Criteria API
+
+	•	Criteria API is a Java-based, type-safe, programmatic way to build queries.
+	•	Instead of writing HQL strings, you use objects (CriteriaBuilder, CriteriaQuery, Root, Predicate).
+
+Problem:
+	•	Many queries are dynamic:
+	•	Filter by language? maybe yes, maybe no.
+	•	Filter by certification? optional.
+	•	Filter by duration range? optional.
+
+How Criteria solves it:
+	•	You build conditions (Predicates) in Java and add them conditionally.
+	•	No string concatenation.
+	•	Queries adapt to user input cleanly.
+
+⸻ CriteriaBuilder
+
+	•	CriteriaBuilder is the entry point for Criteria API.
+	•	It is a factory of:
+
+	•	CriteriaQuery
+	•	Predicate (conditions)
+	•	expressions
+	•	ordering, etc.
+
+⸻
+	•	You need a structured way to build queries (create conditions, combine them, define ordering)
+	    without writing strings.
+
+	•	Central object that gives you methods like:
+	•	equal(), greaterThan(), like(), and(), or(), etc.
+	•	You unify all query building through one consistent API.
+
+ Common CriteriaBuilder Methods
+	•	createQuery(Class<T> resultClass) → create a CriteriaQuery.
+	•	equal(x, y) / notEqual(x, y) → x = y / x != y.
+	•	greaterThan(x, y) / lessThan(x, y) → comparisons.
+	•	like(expr, pattern) → string search.
+	•	between(expr, low, high) → range.
+	•	and(predicates...) / or(predicates...) → combine conditions.
+	•	lower(expr) → lowercase comparison support.
+
+⸻
+
+CriteriaQuery<T>
+
+	•	CriteriaQuery<T> represents the structure of a query.
+	•	It is the “blueprint”: what to select, from where, which conditions, etc.
+
+  Common CriteriaQuery Methods
+	•	from(Class<T>) → sets the root entity, returns Root<T>.
+	•	select(Selection) → choose what to select (often just root).
+	•	where(Predicate...) → apply filters.
+	•	orderBy(Order...) → apply sorting.
+	•	distinct(true) → enable distinct on the root.
+
+⸻
+
+Root<T>
+	•	Root<T> represents the root entity/table in the query’s FROM clause.
+	•	Example: if querying Movie, Root<Movie> is like FROM Movie m.
+
+  Common Root Methods
+	•	get(String attributeName) → access a field.
+	•	join(String relationName) → join relation.
+	•	fetch(String relationName) → analogous to JOIN FETCH in HQL.
+
+
+Predicate
+	•	A Predicate represents a single condition in a WHERE clause:
+	•	e.g., duration > 120, status = 'ACTIVE'.
+
+ Common Predicate Usage
+
+List<Predicate> conditions = new ArrayList<>();
+
+if (language != null) {
+    conditions.add(cb.equal(root.get("language"), language));
+}
+
+if (minDuration != null) {
+    conditions.add(cb.ge(root.get("durationMinutes"), minDuration));
+}
+
+cq.where(cb.and(conditions.toArray(new Predicate[0])));
+
+
+
+CriteriaBuilder cb = session.getCriteriaBuilder();
+CriteriaQuery<Movie> cq = cb.createQuery(Movie.class);
+Root<Movie> root = cq.from(Movie.class);
+
+Predicate titleEq = cb.equal(cb.lower(root.get("title")), title.toLowerCase());
+Predicate langEq  = cb.equal(cb.lower(root.get("language")), language.toLowerCase());
+Predicate onlyActive = cb.equal(root.get("status"), "ACTIVE");
+
+cq.select(root)
+  .where(cb.and(titleEq, langEq, onlyActive));
+
+Movie movie = session.createQuery(cq).uniqueResult();

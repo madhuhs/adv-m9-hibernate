@@ -1,0 +1,145 @@
+Chapter-12 : Performance Optimization & Best Practices
+
+
+1️⃣ Lazy Loading
+2️⃣ Eager Loading
+3️⃣ JDBC Batching
+
+⸻
+* Lazy Loading in Hibernate
+
+* Hibernate loads only parent entity data and  do not load any child data.
+
+* Hibernate does NOT fetch related objects immediately.
+  It waits until you access them in code by using getXXXXList() and use it in code.
+
+* By default hibernate loads all data with Lazy Loading
+
+* Programmer can explicitly specify fetch type as LAZY as below
+    EX : @OneToMany(mappedBy = "entityname", fetch = FetchType.LAZY)
+⸻
+Without Lazy Loading:
+
+* Too much data loaded
+* Slow queries
+* High memory usage
+* Poor performance
+
+With Lazy Loading:
+
+* Faster application
+* Less database load
+* Less memory usage
+* Better scalability
+
+⸻
+
+* When should we use Lazy Loading?
+Especially for:
+	•	@OneToMany
+	•	@ManyToOne
+	•	@ManyToMany
+	•	Large collections
+
+
+* 2. Eager Loading in Hibernate
+
+
+* What is Eager Loading?
+
+* Hibernate loads both parent data and all its child data immediately as
+  soon as find() is called.
+
+* Programmer should explicitly specify fetch type as EAGER as below
+  EX : @OneToMany(mappedBy = "entityname", fetch = FetchType.EAGER)
+
+
+Eager loading often causes:
+
+* Huge SQL queries
+* Multiple joins
+* High memory usage
+* N+1 query problem
+* Slow application
+
+⸻
+
+* N+1 Problem
+
+* Example
+
+List<Movie> movies = movieDAO.findAll();
+
+for (Movie m : movies) {
+    System.out.println(m.getShows().size());
+}
+
+If:
+	•	1 query → fetch movies
+	•	N queries → fetch shows for each movie
+
+* This is called N+1 Problem
+
+⸻
+Instead of EAGER always Keep mapping as LAZY and
+Fetch data only when required.
+
+
+* When can we use EAGER?
+Only when:
+	•	Data is very small
+	•	Always required
+	•	One-to-one or tiny lookup tables
+
+
+* 3. JDBC Batching in Hibernate
+
+⸻
+
+* Batching
+  * Hibernate sends multiple INSERT / UPDATE statements together to the database.
+  Without batching:
+
+  * Too many DB roundtrips
+  * Slow inserts/updates
+  * Poor performance in bulk operations
+
+  Without batching:
+
+  * Too many DB roundtrips
+  * Slow inserts/updates
+  * Poor performance in bulk operations
+
+
+Instead of:
+	•	1 SQL → 1 network call
+Hibernate sends:
+	•	Many SQLs → 1 network call
+⸻
+
+* Enabling Batching In hibernate.cfg.xml
+
+<property name="hibernate.jdbc.batch_size">20</property>
+
+* Hibernate will send 20 statements at once
+
+----
+⸻
+
+With Batching (Optimized)
+for (int i = 0; i < seats.size(); i++) {
+    session.persist(seats.get(i));
+
+    if (i % 20 == 0) {
+        session.flush();
+        session.clear();
+    }
+}
+
+⸻
+Where Batching is Useful?
+	•	Creating show seats
+	•	Bulk movie insert
+	•	Bulk seat updates
+	•	Data migration
+	•	Initial data load

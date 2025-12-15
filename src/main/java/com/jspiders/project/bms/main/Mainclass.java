@@ -103,10 +103,10 @@ public class Mainclass {
     public static void main(String[] args) {
         System.out.println("Program starts...");
 
-         //addMovie();
+         addMovie();
         // updateMovie();
         //getMovie(1l);
-        deleteMovie(1l);
+        //deleteMovie(1l);
 
         System.out.println("6.Close Session Factory");
         sessionFactory.close();
